@@ -36,36 +36,49 @@ thumbNailsItemsArrey[itemCounter].classList.add("active");
 
 //impostiamo il bottone next
 nextUp.addEventListener("click", function(){
-    if (itemCounter === sliderItemsArray.length - 1){
-
-        sliderItemsArray[itemCounter].classList.remove("active");
-        thumbNailsItemsArrey[itemCounter].classList.remove("active");
-
-        itemCounter = 0; 
-
-        sliderItemsArray[itemCounter].classList.add("active");
-        thumbNailsItemsArrey[itemCounter].classList.add("active");
-    }else {
-
-        //rimuovo classe precedente
-        sliderItemsArray[itemCounter].classList.remove("active");
-        thumbNailsItemsArrey[itemCounter].classList.remove("active");
-
-        //aumento il contantore
-        itemCounter++;
-
-        //aggiungo la classe  al nuovo item
-        sliderItemsArray[itemCounter].classList.add("active");
-        thumbNailsItemsArrey[itemCounter].classList.add("active");
-    }
+    goNext();
+    clearInterval(myAutoInterval);
+    myAutoInterval = setInterval(goPreviousl, 3000);
 });
 
 //imposto il bottone prev
 prevDown.addEventListener("click", function(){
+    //do al bottone la possibilita di tornrare indietro
     goPreviousl();
+    //blocco il vecchio intervallo
+    clearInterval(myAutoInterval);
+    myAutoInterval = setInterval(goPreviousl, 3000);
+
 });
-//imposto l'autoplay
-const myAutoPrev = setInterval(goPreviousl, 3000);
+
+////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////AUTO PLAY
+
+//setto stato iniziale del mio intervallo
+// let myAutoInterval = false;
+
+// const autoPrevElm = myAutoPrev();
+
+// //imposto l'autoplay
+// function myAutoPrev() {
+//     if(myAutoInterval === false) {
+//         myAutoInterval = setInterval(goPreviousl, 3000);
+//     }
+
+// }
+
+//aggiungiamo la possibilita di avere un clear on hover sullo slider
+
+sliderItemsContainer.addEventListener("mouseenter", function(){
+    clearInterval(myAutoInterval);
+});
+sliderItemsContainer.addEventListener("mouseout", function(){
+    myAutoInterval = setInterval(goPreviousl, 3000);
+});
+
+
+myAutoInterval = setInterval(goPreviousl, 3000);
+
 
 //gestiamo lo scorrimento a tempo delle slide
 //itemCounter è la variabile che mi permette di scorrere tra le immagini
@@ -93,4 +106,29 @@ function goPreviousl() {
         sliderItemsArray[itemCounter].classList.add("active");
         thumbNailsItemsArrey[itemCounter].classList.add("active");
     };
+}
+
+function goNext() {
+    if (itemCounter === sliderItemsArray.length - 1){
+
+        sliderItemsArray[itemCounter].classList.remove("active");
+        thumbNailsItemsArrey[itemCounter].classList.remove("active");
+
+        itemCounter = 0; 
+
+        sliderItemsArray[itemCounter].classList.add("active");
+        thumbNailsItemsArrey[itemCounter].classList.add("active");
+    }else {
+
+        //rimuovo classe precedente
+        sliderItemsArray[itemCounter].classList.remove("active");
+        thumbNailsItemsArrey[itemCounter].classList.remove("active");
+
+        //aumento il contantore
+        itemCounter++;
+
+        //aggiungo la classe  al nuovo item
+        sliderItemsArray[itemCounter].classList.add("active");
+        thumbNailsItemsArrey[itemCounter].classList.add("active");
+    }
 }

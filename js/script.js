@@ -6,8 +6,8 @@ let sliderItemsContainer = document.querySelector(".slider-items"); //contenitor
 let thumbNailsItems = document.querySelector(".thumbnails-image");
 const nextUp = document.querySelector(".next-up");// bottone next
 const prevDown = document.querySelector(".prev-down");//bottone prev
-console.log(sliderItemsContainer, nextUp, prevDown); //debug
 
+//grid img and thumbnail generator
 for (let i = 0; i < userImages.length; i++) {
     
     let currentImg = userImages[i];
@@ -33,6 +33,7 @@ let itemCounter = 0;
 sliderItemsArray[itemCounter].classList.add("active");
 thumbNailsItemsArrey[itemCounter].classList.add("active");
 
+myAutoInterval = setInterval(goPreviousl, 3000);
 
 //impostiamo il bottone next
 nextUp.addEventListener("click", function(){
@@ -49,7 +50,17 @@ prevDown.addEventListener("click", function(){
     clearInterval(myAutoInterval);
     myAutoInterval = setInterval(goPreviousl, 3000);
 
+});    
+
+sliderItemsContainer.addEventListener("mouseenter", function(){
+    clearInterval(myAutoInterval);
 });
+sliderItemsContainer.addEventListener("mouseout", function(){
+    myAutoInterval = setInterval(goPreviousl, 3000);
+});
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////AUTO PLAY
@@ -62,27 +73,19 @@ prevDown.addEventListener("click", function(){
 // //imposto l'autoplay
 // function myAutoPrev() {
 //     if(myAutoInterval === false) {
-//         myAutoInterval = setInterval(goPreviousl, 3000);
+//         myAutoInterval = setInterval(goPreviousl, 3000);    
 //     }
 
 // }
 
 //aggiungiamo la possibilita di avere un clear on hover sullo slider
 
-sliderItemsContainer.addEventListener("mouseenter", function(){
-    clearInterval(myAutoInterval);
-});
-sliderItemsContainer.addEventListener("mouseout", function(){
-    myAutoInterval = setInterval(goPreviousl, 3000);
-});
-
-
-myAutoInterval = setInterval(goPreviousl, 3000);
-
-
 //gestiamo lo scorrimento a tempo delle slide
 //itemCounter è la variabile che mi permette di scorrere tra le immagini
 
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////MY FUNCTION
 function goPreviousl() {
     if (itemCounter === 0){
 
